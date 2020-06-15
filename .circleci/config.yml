@@ -39,6 +39,8 @@ jobs:
           paths:
             - /caches/app.tar
   build:
+    docker:
+      - image: 18.04:latest
     steps:
       - checkout
       - setup_remote_docker
