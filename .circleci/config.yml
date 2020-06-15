@@ -3,7 +3,7 @@ jobs:
   build_image:
     working_directory: /app
     docker:
-      - image: 18.04:latest
+      - image: ubuntu:latest
     steps:
       - checkout
       - setup_remote_docker
@@ -38,9 +38,9 @@ jobs:
           key: v1-{{ .Branch }}-{{ epoch }}
           paths:
             - /caches/app.tar
-  build:
+  build_app:
     docker:
-      - image: 18.04:latest
+      - image: ubuntu:latest
     steps:
       - checkout
       - setup_remote_docker
@@ -58,6 +58,14 @@ jobs:
           name: Building
           command: |
             mkdir build && cd build && cmake .. && make
+workflows:
+  version: 2
+  build-and-test:
+    jobs:
+      - build_image
+      - build_app:
+          requires:
+            - build_image            
 #      - run:
 #          name: Run tests
 #          command: |
