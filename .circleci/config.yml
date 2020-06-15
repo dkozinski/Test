@@ -52,10 +52,10 @@ jobs:
           command: |
             set +o pipefail
             docker load -i /caches/app.tar | true
-       - run:
-           name: Building
-           command: |
-             mkdir build && cd build && cmake .. && make
+      - run:
+          name: Building
+          command: |
+            mkdir build && cd build && cmake .. && make
 #      - run:
 #          name: Run tests
 #          command: |
